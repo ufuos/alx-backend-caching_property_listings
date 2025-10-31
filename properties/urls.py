@@ -7,4 +7,8 @@ app_name = "properties"
 urlpatterns = [
     # maps /properties/ to the view (we will include this in the project urls)
     path("", property_list, name="property_list"),
+    path("admin/", admin.site.urls),
+    # include the properties app at /properties/
+    path("properties/", include("properties.urls", namespace="properties")),
+]
 ]
