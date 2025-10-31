@@ -88,10 +88,13 @@ DATABASES = {
 # Redis Cache Configuration
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",  # 👈 'redis' = service name in docker-compose
+         "BACKEND": "django_redis.cache.RedisCache",
+        # If you use Docker or a separate host, change the host/port accordingly.
+        "LOCATION": os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # Optional: prevent caching of None values
+            # "IGNORE_EXCEPTIONS": True,
         }
     }
 }
