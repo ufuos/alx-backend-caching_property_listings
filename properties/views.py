@@ -1,3 +1,4 @@
+
 # properties/views.py
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
@@ -14,5 +15,9 @@ def property_list(request):
     # .values() returns dictionaries of model fields (so JsonResponse can serialize them).
     qs = Property.objects.all().values()
     data = list(qs)  # convert QuerySet of dicts to list
-    return JsonResponse(data, safe=False)
+    return JsonResponse({
+        "status": "success",
+        "count": len(data),
+        "properties": data
+    })
 
